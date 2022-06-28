@@ -4,6 +4,14 @@ namespace DlmCredit.Application.Disbursement
 {
     public interface ILoanDisbursementService
     {
-        Task<decimal> GetDisbursementAmount(string accountId);
+        Task<LoanDetails> GetIncomeDetails(string accountId);
+        Task<decimal> DisbursementLoan(string accountId);
+    }
+
+
+    public class LoanDetails
+    {
+        public string AccountId { get; set; }
+        public int MonthlyIncome { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using DlmCredit.Infrastructure.ThirdpartyApis;
 using Microsoft.Extensions.DependencyInjection;
 using DlmCredit.Infrastructure.Services;
 using DlmCredit.Application.Contracts;
+using DlmCredit.Infrastructure.OAuth;
 
 namespace DlmCredit.Infrastructure
 {
@@ -24,6 +25,8 @@ namespace DlmCredit.Infrastructure
             services.Configure<MonoConfig>(configuration.GetSection(monoSection));
             services.AddScoped<IMonoClinet, MonoClinet>();
             services.AddTransient<IIncomeRetrieverService, MonoIncomeService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddOAuth();
             return services;
         }
     }
