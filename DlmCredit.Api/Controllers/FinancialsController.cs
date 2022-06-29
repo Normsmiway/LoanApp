@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using DlmCredit.Application.Disbursement;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace DlmCredit.Api.Controllers
 {
@@ -12,7 +14,7 @@ namespace DlmCredit.Api.Controllers
     /// </summary>
     [ApiController]
     [Route("[controller]")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class FinancialsController : ControllerBase
     {
         private readonly ILogger<FinancialsController> _logger;

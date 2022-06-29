@@ -52,15 +52,18 @@ namespace DlmCredit.Infrastructure.OAuth
 
         public UserInformation ValidateToken(string token)
         {
-            _tokenHandler.ValidateToken(token, new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(_key),
-                ValidateIssuer = true,
-                ValidateLifetime = true,
-                ValidateAudience = false,
-                ClockSkew = TimeSpan.Zero,
-            }, out SecurityToken validatedToken);
+            _tokenHandler.ValidateToken(token,
+                new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(_key),
+                    ValidateIssuer = true,
+                    ValidateLifetime = false,
+                    ValidateAudience = true,
+                    ClockSkew = TimeSpan.Zero,
+                    ValidIssuer = _configuration["Jwt:Issuer"],
+                    ValidAudience = _configuration["Jwt:Audience"]
+                }, out SecurityToken validatedToken);
 
             var jwtToken = (JwtSecurityToken)validatedToken;
             var userId = jwtToken.Claims.First(x => x.Type == "id").Value;
